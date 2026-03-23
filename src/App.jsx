@@ -4,19 +4,19 @@ const _style = document.createElement("style");
 _style.textContent = `
   *{box-sizing:border-box;margin:0;padding:0}
   html,body,#root{height:100%}
-  body{background:#1a1a1a;font-family:'Segoe UI',system-ui,sans-serif}
+  body{background:#f1f5f9;font-family:'Segoe UI',system-ui,sans-serif}
   button{font-family:inherit}
-  input[type=range]{accent-color:#6b7280;width:100%}
-  .exam-wrap{position:fixed;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;background:#1a1a1a}
-  .exam-card{width:100%;max-width:680px;height:100%;display:flex;flex-direction:column;background:#2d2d2d;box-shadow:0 4px 32px rgba(0,0,0,0.4)}
-  .exam-header{flex-shrink:0;padding:16px 28px 12px;background:#2d2d2d;border-bottom:2px solid #3a3a3a}
+  input[type=range]{accent-color:#1e3a8a;width:100%}
+  .exam-wrap{position:fixed;top:0;left:0;right:0;bottom:0;display:flex;flex-direction:column;align-items:center;background:#f1f5f9}
+  .exam-card{width:100%;max-width:680px;height:100%;display:flex;flex-direction:column;background:#fff;box-shadow:0 4px 32px rgba(0,0,0,0.10)}
+  .exam-header{flex-shrink:0;padding:16px 28px 12px;background:#fff;border-bottom:2px solid #f1f5f9}
   .exam-body{flex:1;overflow-y:auto;padding:24px 28px 16px}
-  .exam-footer{flex-shrink:0;padding:14px 28px 18px;background:#2d2d2d;border-top:2px solid #3a3a3a}
+  .exam-footer{flex-shrink:0;padding:14px 28px 18px;background:#fff;border-top:2px solid #f1f5f9}
   .exam-body::-webkit-scrollbar{width:4px}
   .exam-body::-webkit-scrollbar-track{background:transparent}
-  .exam-body::-webkit-scrollbar-thumb{background:#4a4a4a;border-radius:99px}
+  .exam-body::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:99px}
   .setup-wrap{min-height:100%;display:flex;align-items:flex-start;justify-content:center;padding:32px 16px;overflow-y:auto}
-  .setup-card{background:#2d2d2d;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.4);padding:32px;width:100%;max-width:620px}
+  .setup-card{background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(0,0,0,0.08);padding:32px;width:100%;max-width:620px}
 `;
 if (!document.getElementById("bcs-styles")) { _style.id="bcs-styles"; document.head.appendChild(_style); }
 
@@ -365,26 +365,26 @@ function pill(border, color, bg) {
   return { fontSize:13, fontWeight:700, padding:"3px 12px", borderRadius:20, border:`1.5px solid ${border}`, color, background:bg, whiteSpace:"nowrap" };
 }
 
-// Dark theme palette
+// Original colour palette
 const T = {
-  text:      "#e2e2e2",
-  textMuted: "#9a9a9a",
-  textDim:   "#6b6b6b",
-  card:      "#2d2d2d",
-  cardAlt:   "#363636",
-  border:    "#4a4a4a",
-  borderFaint:"#3a3a3a",
-  accent:    "#7b9dd4",
-  accentBg:  "#2a3549",
-  accentBorder:"#4a6490",
-  green:     "#4ade80",
-  greenBg:   "#0f2918",
-  greenBorder:"#22543d",
-  red:       "#f87171",
-  redBg:     "#2d1212",
-  redBorder: "#7f1d1d",
-  amber:     "#fbbf24",
-  amberBg:   "#2d2008",
+  text:        "#0f172a",
+  textMuted:   "#64748b",
+  textDim:     "#94a3b8",
+  card:        "#fff",
+  cardAlt:     "#f8fafc",
+  border:      "#e2e8f0",
+  borderFaint: "#f1f5f9",
+  accent:      "#1e3a8a",
+  accentBg:    "#eff6ff",
+  accentBorder:"#1e3a8a",
+  green:       "#15803d",
+  greenBg:     "#f0fdf4",
+  greenBorder: "#16a34a",
+  red:         "#dc2626",
+  redBg:       "#fef2f2",
+  redBorder:   "#dc2626",
+  amber:       "#d97706",
+  amberBg:     "#fffbeb",
 };
 
 function Switch({ on, toggle }) {
@@ -450,6 +450,7 @@ export default function App() {
   }
   function finishExam() { clearInterval(timerRef.current); setScreen("results"); }
 
+  const allAnswered = questions.length > 0 && Object.keys(submitted).length === questions.length;
   const timerWarn   = useTimer && timeLeft <= 300 && timeLeft > 0;
   const timerDanger = useTimer && timeLeft <= 60  && timeLeft > 0;
   const timerColor  = timerDanger ? "#dc2626" : timerWarn ? "#d97706" : "#1e3a8a";
@@ -699,8 +700,8 @@ export default function App() {
           );
         })}
         <div style={{ marginTop:24 }}>
-          <button onClick={startExam} style={{ width:"100%", padding:"13px", background:"#4a5568", color:"#e2e2e2", fontWeight:700, fontSize:15, border:"none", borderRadius:10, cursor:"pointer" }}>🔄 New Randomised Test</button>
-          <button onClick={restart} style={{ width:"100%", padding:"13px", background:T.cardAlt, color:T.accent, fontWeight:700, fontSize:15, border:`1.5px solid ${T.accentBorder}`, borderRadius:10, cursor:"pointer", marginTop:8 }}>⚙️ Change Settings</button>
+          <button onClick={startExam} style={{ width:"100%", padding:"13px", background:"#1e3a8a", color:"#fff", fontWeight:700, fontSize:15, border:"none", borderRadius:10, cursor:"pointer" }}>🔄 New Randomised Test</button>
+          <button onClick={restart} style={{ width:"100%", padding:"13px", background:"#fff", color:"#1e3a8a", fontWeight:700, fontSize:15, border:"1.5px solid #1e3a8a", borderRadius:10, cursor:"pointer", marginTop:8 }}>⚙️ Change Settings</button>
         </div>
       </div></div>
     );
